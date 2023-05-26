@@ -1,0 +1,221 @@
+package thuchanh5;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class QuanLyHangDoiMuaVe {
+    private List<KhachHang> danhSachKhachHang;
+
+    public QuanLyHangDoiMuaVe() {
+        danhSachKhachHang = new ArrayList<>();
+    }
+
+    public void themKhachHang() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Nhap so CMND cua khach hang: ");
+        String soCMND = scanner.nextLine();
+
+        // Kiểm tra xem khách hàng đã tồn tại trong danh sách chưa
+        if (kiemTraTonTaiKhachHang(soCMND)) {
+            System.out.println("Khach hang da ton tai trong danh sach.");
+            return;
+        }
+
+        System.out.print("Nhap ten khach hang: ");
+        String tenKhachHang = scanner.nextLine();
+
+        System.out.print("Nhap ga den: ");
+        String gaDen = scanner.nextLine();
+
+        System.out.print("Nhap gia tien: ");
+        double giaTien = scanner.nextDouble();
+
+        // Tạo một khách hàng mới và thêm vào danh sách
+        KhachHang khachHang = new KhachHang(soCMND, tenKhachHang, gaDen, giaTien);
+        danhSachKhachHang.add(khachHang);
+
+        System.out.println("Them khach hang thanh cong.");
+    }
+
+    public void banVe() {
+        if (danhSachKhachHang.isEmpty()) {
+            System.out.println("Danh sach khach hang trong.");
+            return;
+        }
+
+        // Lấy khách hàng đầu tiên trong danh sách
+        KhachHang khachHang = danhSachKhachHang.get(0);
+
+        // Xóa khách hàng đã mua vé khỏi danh sách
+        danhSachKhachHang.remove(0);
+
+        System.out.println("Ban ve cho khach hang: " + khachHang.getTenKhachHang());
+    }
+
+    public void hienThiDanhSachKhachHang() {
+        if (danhSachKhachHang.isEmpty()) {
+            System.out.println("Danh sach khach hang trong.");
+            return;
+        }
+
+        System.out.println("Danh sach khach hang:");
+        for (KhachHang khachHang : danhSachKhachHang) {
+            System.out.println("So CMND: " + khachHang.getSoCMND());
+            System.out.println("Ten khach hang: " + khachHang.getTenKhachHang());
+            System.out.println("Ga den: " + khachHang.getGaDen());
+            System.out.println("Gia tien: " + khachHang.getGiaTien());
+            System.out.println("---------------------");
+        }
+    }
+
+    public void huyKhachHang() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Nhap so CMND cua khach hang can huy: ");
+        String soCMND = scanner.nextLine();
+
+        // Tìm khách hàng trong danh sách
+        for (KhachHang khachHang : danhSachKhachHang) {
+            if (khachHang.getSoCMND().equals(soCMND)) {
+                // Xóa khách hàng khỏi danh sách
+                danhSachKhachHang.remove(khachHang);
+                System.out.println("Huy khach hang thanh cong.");
+                return;
+            }
+        }
+
+        System.out.println("Khong tim thay khach hang co so CMND " + soCMND);
+    }
+
+    public void thongKeTinhHinhBanVe() {
+        int soKhachHangChoVe = danhSachKhachHang.size();
+        int soKhachHangDaNhanVe = danhSachKhachHang.size() - 1; // Giả sử khách hàng đầu tiên đã nhận vé
+        double tongTienThuVe = 0;
+
+        for (KhachHang khachHang : danhSachKhachHang) {
+            tongTienThuVe += khachHang.getGiaTien();
+        }
+
+        System.out.println("Tinh hinh ban ve:");
+        System.out.println("So khach hang cho nhan ve: " + soKhachHangChoVe);
+        System.out.println("So khach hang da nhan ve: " + soKhachHangDaNhanVe);
+        System.out.println("Tong so tien da thu ve: " + tongTienThuVe);
+    }
+
+    public void luuDanhSachVaoFile() {
+        // Code để lưu danh sách khách hàng vào file
+        // ...
+        System.out.println("Luu danh sach thanh cong.");
+    }
+
+    public void hienThiDanhSachGaChuaMuaVe() {
+        if (danhSachKhachHang.isEmpty()) {
+            System.out.println("Danh sach khach hang trong.");
+            return;
+        }
+
+        List<String> danhSachGa = new ArrayList<>();
+
+        for (KhachHang khachHang : danhSachKhachHang) {
+            if (!danhSachGa.contains(khachHang.getGaDen())) {
+                danhSachGa.add(khachHang.getGaDen());
+            }
+        }
+
+        System.out.println("Danh sach cac ga dang cho mua ve:");
+        for (String ga : danhSachGa) {
+            System.out.println(ga);
+        }
+    }
+
+    public void hienThiDanhSachGaVaSoVeTuongUng() {
+        if (danhSachKhachHang.isEmpty()) {
+            System.out.println("Danh sach khach hang trong.");
+            return;
+        }
+
+        List<String> danhSachGa = new ArrayList<>();
+
+        for (KhachHang khachHang : danhSachKhachHang) {
+            if (!danhSachGa.contains(khachHang.getGaDen())) {
+                danhSachGa.add(khachHang.getGaDen());
+            }
+        }
+
+        System.out.println("Danh sach cac ga dang cho mua ve va so ve tuong ung:");
+        for (String ga : danhSachGa) {
+            int soVe = 0;
+
+            for (KhachHang khachHang : danhSachKhachHang) {
+                if (khachHang.getGaDen().equals(ga)) {
+                    soVe++;
+                }
+            }
+
+            System.out.println(ga + ": " + soVe + " vé");
+        }
+    }
+
+    private boolean kiemTraTonTaiKhachHang(String soCMND) {
+        for (KhachHang khachHang : danhSachKhachHang) {
+            if (khachHang.getSoCMND().equals(soCMND)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        QuanLyHangDoiMuaVe quanLyHangDoiMuaVe = new QuanLyHangDoiMuaVe();
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("===== MENU =====");
+            System.out.println("1. Them khach hang moi");
+            System.out.println("2. Ban ve cho khach hang");
+            System.out.println("3. Hien thi danh sach khach hang");
+            System.out.println("4. Huy khach hang");
+            System.out.println("5. Thong ke tinh hinh ban ve");
+            System.out.println("6. Luu danh sach vao file");
+            System.out.println("7. Hien thi danh sach cac ga dang cho mua ve");
+            System.out.println("8. Hien thi danh sach cac ga dang cho mua ve va so ve tuong ung");
+            System.out.println("0. Thoat");
+            System.out.print("Nhap lua chon cua ban: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    quanLyHangDoiMuaVe.themKhachHang();
+                    break;
+                case 2:
+                    quanLyHangDoiMuaVe.banVe();
+                    break;
+                case 3:
+                    quanLyHangDoiMuaVe.hienThiDanhSachKhachHang();
+                    break;
+                case 4:
+                    quanLyHangDoiMuaVe.huyKhachHang();
+                    break;
+                case 5:
+                    quanLyHangDoiMuaVe.thongKeTinhHinhBanVe();
+                    break;
+                case 6:
+                    quanLyHangDoiMuaVe.luuDanhSachVaoFile();
+                    break;
+                case 7:
+                    quanLyHangDoiMuaVe.hienThiDanhSachGaChuaMuaVe();
+                    break;
+                case 8:
+                    quanLyHangDoiMuaVe.hienThiDanhSachGaVaSoVeTuongUng();
+                    break;
+                case 0:
+                    System.out.println("Ket thuc chuong trinh.");
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le. Vui long chon lai");
+            }
+        } while (choice != 0);
+    }
+}
