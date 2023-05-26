@@ -1,0 +1,31 @@
+package thuchanh5;
+
+public class KhachHang {
+    private String soCMND;
+    private String tenKhachHang;
+    private String gaDen;
+    private double giaTien;
+
+    public KhachHang(String soCMND, String tenKhachHang, String gaDen, double giaTien) {
+        this.soCMND = soCMND;
+        this.tenKhachHang = tenKhachHang;
+        this.gaDen = gaDen;
+        this.giaTien = giaTien;
+    }
+
+    public String getSoCMND() {
+        return soCMND;
+    }
+
+    public String getTenKhachHang() {
+        return tenKhachHang;
+    }
+
+    public String getGaDen() {
+        return gaDen;
+    }
+
+    public double getGiaTien() {
+        return giaTien;
+    }
+}
