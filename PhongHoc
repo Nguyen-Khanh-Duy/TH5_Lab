@@ -1,0 +1,36 @@
+package thuchanh5;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.*;
+public class PhongHoc {
+    private String maPhong;
+    private String dayNha;
+    private int dienTich;
+    private int soBongDen;
+
+    public PhongHoc(String maPhong, String dayNha, int dienTich, int soBongDen) {
+        this.maPhong = maPhong;
+        this.dayNha = dayNha;
+        this.dienTich = dienTich;
+        this.soBongDen = soBongDen;
+    }
+
+    public String getMaPhong() {
+        return maPhong;
+    }
+
+    public String getDayNha() {
+        return dayNha;
+    }
+
+    public int getDienTich() {
+        return dienTich;
+    }
+
+    public int getSoBongDen() {
+        return soBongDen;
+    }
+}
